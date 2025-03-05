@@ -1,9 +1,9 @@
 package com.example.animationincompose.presentation.bottom_navigation
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.getValue
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -13,16 +13,26 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Shapes
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -35,6 +45,10 @@ import com.composables.icons.lucide.Zap
 import com.example.animationincompose.presentation.bottom_navigation.screens.Screens
 import com.example.animationincompose.presentation.bottom_navigation.screens.SetupNavGraph
 
+
+import androidx.compose.runtime.LaunchedEffect
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomNavigationScreenHolder(navController: NavHostController) {
     val bottomNavigationItem = listOf(
@@ -48,8 +62,61 @@ fun BottomNavigationScreenHolder(navController: NavHostController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
+    val snackState = remember { SnackbarHostState() }
+
+    LaunchedEffect(currentRoute) {
+        if (currentRoute != null) {
+            snackState.showSnackbar(
+                "Your current route is $currentRoute",
+            )
+        }
+    }
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+        snackbarHost = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 20.dp)
+            ) {
+                SnackbarHost(hostState = snackState) { data ->
+                    // Custom Snackbar with a dismiss button
+                    Snackbar(
+                        modifier = Modifier.padding(8.dp),
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary,
+                        action = {
+                            // Dismiss button
+                            TextButton(
+                                onClick = { data.dismiss() }
+                            ) {
+                                Text(
+                                    text = "Dismiss",
+                                    color = MaterialTheme.colorScheme.onPrimary
+                                )
+                            }
+                        }
+                    ) {
+                        Text(data.visuals.message)
+                    }
+                }
+            }
+        },
+        topBar = {
+            TopAppBar(
+                modifier = Modifier.fillMaxWidth(),
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                ),
+                title = {
+                    Text(
+                        text = currentRoute?.uppercase().toString(),
+                        color = Color.White
+                    )
+                },
+            )
+        },
         bottomBar = {
             Box(
                 modifier = Modifier
@@ -58,9 +125,7 @@ fun BottomNavigationScreenHolder(navController: NavHostController) {
                     .offset(y = (-24).dp)
                     .padding(8.dp)
                     .background(
-                        MaterialTheme
-                            .colorScheme
-                            .secondaryContainer,
+                        MaterialTheme.colorScheme.primaryContainer,
                         shape = Shapes().medium,
                     ),
                 contentAlignment = Alignment.Center,
@@ -71,42 +136,37 @@ fun BottomNavigationScreenHolder(navController: NavHostController) {
                 ) {
                     bottomNavigationItem.forEach { item ->
                         Box(
-                            modifier = if(currentRoute == item.label) {
-                                Modifier
-                                    .size(36.dp)
-                                    .background(
-                                        MaterialTheme.colorScheme.inversePrimary,
-                                        shape = Shapes().medium
-                                    )
-                            } else {
-                                Modifier
-                            },
-
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Icon(
-                                imageVector = item.icon,
-                                contentDescription = item.label,
-                                tint = Color(0xFF000000),
-                                modifier = Modifier.clickable(
-                                    indication = rememberRipple(
-                                        bounded = false,
-                                        radius = 25.dp,
-                                    ),
-                                    interactionSource = remember { MutableInteractionSource() }
-                                ) {
+                            modifier = Modifier
+                                .size(36.dp)
+                                .clickable {
                                     navController.navigate(item.label) {
-                                        // Pop up to the start destination to avoid building up a large back stack
                                         popUpTo(navController.graph.startDestinationId) {
                                             saveState = true
                                         }
-                                        // Avoid multiple copies of the same destination when reselecting the same item
                                         launchSingleTop = true
-                                        // Restore state when reselecting a previously selected item
                                         restoreState = true
                                     }
+                                },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            if (currentRoute == item.label) {
+                                GradientRingBox(
+                                    modifier = Modifier.matchParentSize(),
+                                    ringWidth = 8f,
+                                ) {
+                                    Icon(
+                                        imageVector = item.icon,
+                                        contentDescription = item.label,
+                                        tint = Color(0xFFFFFFFF)
+                                    )
                                 }
-                            )
+                            } else {
+                                Icon(
+                                    imageVector = item.icon,
+                                    contentDescription = item.label,
+                                    tint = Color(0xFFFFFFFF)
+                                )
+                            }
                         }
                     }
                 }
@@ -120,5 +180,31 @@ fun BottomNavigationScreenHolder(navController: NavHostController) {
         ) {
             SetupNavGraph(navController)
         }
+    }
+}
+
+@Composable
+fun GradientRingBox(
+    modifier: Modifier = Modifier,
+    ringWidth: Float = 8f,
+    gradientColors: List<Color> = listOf(Color.Red, Color.Yellow, Color.Green),
+    content: @Composable () -> Unit,
+) {
+    Box(
+        modifier = modifier,
+        contentAlignment = Alignment.Center
+    ) {
+        Canvas(modifier = Modifier.matchParentSize()) {
+            val canvasSize = size.minDimension
+            val radius = (canvasSize / 2) - (ringWidth / 2)
+
+            drawCircle(
+                brush = Brush.sweepGradient(gradientColors),
+                radius = radius,
+                center = Offset(canvasSize / 2, canvasSize / 2),
+                style = Stroke(width = ringWidth)
+            )
+        }
+        content()
     }
 }
