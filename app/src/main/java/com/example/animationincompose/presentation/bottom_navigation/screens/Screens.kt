@@ -1,4 +1,4 @@
-package com.example.animationincompose.screens
+package com.example.animationincompose.presentation.bottom_navigation.screens
 
 const val ROOT_ROUTE = "root"
 const val HOME_ROUTE = "home"
@@ -9,6 +9,4 @@ sealed class Screens(val route:String) {
     object Profile : Screens("profile")
     object Album : Screens("Album")
     object Zap : Screens("zap")
-
-
 }
