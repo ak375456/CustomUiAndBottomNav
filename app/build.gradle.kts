@@ -62,4 +62,6 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
     implementation("com.composables:icons-lucide:1.0.0")
+
+    implementation ("co.yml:ycharts:2.1.0")
 }

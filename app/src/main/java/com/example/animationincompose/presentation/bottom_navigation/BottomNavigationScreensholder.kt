@@ -6,23 +6,28 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Shapes
-import androidx.compose.material3.Snackbar
-import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -39,22 +44,20 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.composables.icons.lucide.Album
 import com.composables.icons.lucide.House
 import com.composables.icons.lucide.Lucide
-import com.composables.icons.lucide.PersonStanding
-import com.composables.icons.lucide.Settings2
 import com.composables.icons.lucide.Zap
 import com.example.animationincompose.presentation.bottom_navigation.screens.Screens
 import com.example.animationincompose.presentation.bottom_navigation.screens.SetupNavGraph
-
-
 import androidx.compose.runtime.LaunchedEffect
+import com.composables.icons.lucide.Database
+import com.composables.icons.lucide.Network
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomNavigationScreenHolder(navController: NavHostController) {
     val bottomNavigationItem = listOf(
         BottomNavigation(Lucide.House, Screens.Home.route),
-        BottomNavigation(Lucide.Settings2, Screens.Setting.route),
-        BottomNavigation(Lucide.PersonStanding, Screens.Profile.route),
+        BottomNavigation(Lucide.Network, Screens.Setting.route),
+        BottomNavigation(Lucide.Database, Screens.Profile.route),
         BottomNavigation(Lucide.Album, Screens.Album.route),
         BottomNavigation(Lucide.Zap, Screens.Zap.route),
     )
@@ -74,32 +77,57 @@ fun BottomNavigationScreenHolder(navController: NavHostController) {
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        snackbarHost = {
+        floatingActionButton = {
+            // Wrap FAB and buttons in a Box
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 20.dp)
+                    .padding(bottom = 8.dp)
+                    .wrapContentSize(Alignment.BottomEnd)
             ) {
-                SnackbarHost(hostState = snackState) { data ->
-                    // Custom Snackbar with a dismiss button
-                    Snackbar(
-                        modifier = Modifier.padding(8.dp),
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = MaterialTheme.colorScheme.onPrimary,
-                        action = {
-                            // Dismiss button
-                            TextButton(
-                                onClick = { data.dismiss() }
-                            ) {
-                                Text(
-                                    text = "Dismiss",
-                                    color = MaterialTheme.colorScheme.onPrimary
-                                )
-                            }
-                        }
+                // Additional buttons above the FAB
+                Column(
+                    modifier = Modifier
+                        .offset(y = (-60).dp) // Move buttons upward
+                ) {
+                    // Button 1
+                    FloatingActionButton(
+                        onClick = { /* Handle click */ },
+                        modifier = Modifier.size(48.dp),
+                        containerColor = MaterialTheme.colorScheme.secondary
                     ) {
-                        Text(data.visuals.message)
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "Button 1",
+                            tint = Color.White
+                        )
                     }
+                    Spacer(modifier = Modifier.height(8.dp))
+                    // Button 2
+                    FloatingActionButton(
+                        onClick = { /* Handle click */ },
+                        modifier = Modifier.size(48.dp),
+                        containerColor = MaterialTheme.colorScheme.tertiary
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = "Button 2",
+                            tint = Color.White
+                        )
+                    }
+                }
+
+                // Main FAB
+                FloatingActionButton(
+                    onClick = { /* Handle click */ },
+                    modifier = Modifier.align(Alignment.BottomEnd),
+                    containerColor = MaterialTheme.colorScheme.primary
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Favorite,
+                        contentDescription = "Main FAB",
+                        tint = Color.White
+                    )
                 }
             }
         },
@@ -117,6 +145,35 @@ fun BottomNavigationScreenHolder(navController: NavHostController) {
                 },
             )
         },
+        //Uncomment this for toast
+//        snackbarHost = {
+//            Box(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//            ) {
+//                SnackbarHost(hostState = snackState) { data ->
+//                    // Custom Snackbar with a dismiss button
+//                    Snackbar(
+//                        modifier = Modifier.padding(8.dp),
+//                        containerColor = MaterialTheme.colorScheme.primary,
+//                        contentColor = MaterialTheme.colorScheme.onPrimary,
+//                        action = {
+//                            // Dismiss button
+//                            TextButton(
+//                                onClick = { data.dismiss() }
+//                            ) {
+//                                Text(
+//                                    text = "Dismiss",
+//                                    color = MaterialTheme.colorScheme.onPrimary
+//                                )
+//                            }
+//                        }
+//                    ) {
+//                        Text(data.visuals.message)
+//                    }
+//                }
+//            }
+//        },
         bottomBar = {
             Box(
                 modifier = Modifier
