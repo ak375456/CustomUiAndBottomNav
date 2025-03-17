@@ -32,6 +32,7 @@ import co.yml.charts.ui.linechart.model.LineStyle
 import co.yml.charts.ui.linechart.model.SelectionHighlightPoint
 import co.yml.charts.ui.linechart.model.SelectionHighlightPopUp
 import co.yml.charts.ui.linechart.model.ShadowUnderLine
+import co.yml.charts.ui.piechart.charts.DonutPieChart
 import co.yml.charts.ui.piechart.charts.PieChart
 import co.yml.charts.ui.piechart.models.PieChartConfig
 import co.yml.charts.ui.piechart.models.PieChartData
@@ -133,7 +134,35 @@ fun HomeComposable() {
             pieChartData,
             pieChartConfig
         )
-    }
 
-    //---------DONUT CHART----------
+        //---------DONUT CHART----------
+        val donutChartData = PieChartData(
+            slices = listOf(
+                PieChartData.Slice("HP", 15f, Color(0xFF5F0A87)),
+                PieChartData.Slice("Dell", 30f, Color(0xFF20BF55)),
+                PieChartData.Slice("Lenovo", 40f, Color(0xFFEC9F05)),
+                PieChartData.Slice("Asus", 10f, Color(0xFFF53844))
+            ),
+            plotType = PlotType.Donut
+        )
+        val donutChartConfig = PieChartConfig(
+            strokeWidth = 120f,
+            activeSliceAlpha = .9f,
+            isAnimationEnable = true,
+            backgroundColor = Color.Transparent,
+            labelVisible = true,
+            labelColor = Color.White,
+            labelType = PieChartConfig.LabelType.PERCENTAGE,
+            animationDuration = 1500,
+            showSliceLabels = true,
+
+        )
+        DonutPieChart(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(500.dp),
+            donutChartData,
+            donutChartConfig
+        )
+    }
 }
