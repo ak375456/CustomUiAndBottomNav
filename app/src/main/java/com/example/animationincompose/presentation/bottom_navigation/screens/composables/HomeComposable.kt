@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -37,14 +38,11 @@ import co.yml.charts.ui.piechart.models.PieChartData
 
 @Composable
 fun HomeComposable() {
-    val scrollState = rememberScrollState(0)
+    val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .scrollable(
-                state = scrollState,
-                orientation = androidx.compose.foundation.gestures.Orientation.Vertical
-            ),
+            .verticalScroll(scrollState),
 //        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -122,11 +120,12 @@ fun HomeComposable() {
         )
         val pieChartConfig = PieChartConfig(
             isAnimationEnable = true,
-            showSliceLabels = false,
+            showSliceLabels = true,
             animationDuration = 1500,
             backgroundColor = Color.Transparent,
             labelVisible = true,
             labelColor = Color.White,
+            labelType = PieChartConfig.LabelType.VALUE,
         )
         PieChart(
             modifier = Modifier
@@ -135,4 +134,6 @@ fun HomeComposable() {
             pieChartConfig
         )
     }
+
+    //---------DONUT CHART----------
 }
