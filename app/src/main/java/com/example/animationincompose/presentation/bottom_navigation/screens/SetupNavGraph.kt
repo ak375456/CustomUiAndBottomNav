@@ -7,10 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.animationincompose.hadith_api.presentation.RetrofitComposable
 import com.example.animationincompose.presentation.bottom_navigation.screens.composables.AlbumComposable
 import com.example.animationincompose.presentation.bottom_navigation.screens.composables.HomeComposable
 import com.example.animationincompose.presentation.bottom_navigation.screens.composables.ProfileComposable
-import com.example.animationincompose.hadith_api.presentation.SettingComposable
 import com.example.animationincompose.presentation.bottom_navigation.screens.composables.ZapComposable
 
 @Composable
@@ -38,7 +38,7 @@ fun SetupNavGraph(navHostController: NavHostController) {
         composable(
             route = Screens.Setting.route
         ) {
-            SettingComposable()
+            RetrofitComposable()
         }
         composable(
             route = Screens.Profile.route
