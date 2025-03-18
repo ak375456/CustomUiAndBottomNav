@@ -1,11 +1,7 @@
 package com.example.animationincompose.presentation.bottom_navigation.screens
 
 
-import android.transition.Fade
-import android.transition.Transition
 import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -14,7 +10,7 @@ import androidx.navigation.compose.composable
 import com.example.animationincompose.presentation.bottom_navigation.screens.composables.AlbumComposable
 import com.example.animationincompose.presentation.bottom_navigation.screens.composables.HomeComposable
 import com.example.animationincompose.presentation.bottom_navigation.screens.composables.ProfileComposable
-import com.example.animationincompose.presentation.bottom_navigation.screens.composables.SettingComposable
+import com.example.animationincompose.hadith_api.presentation.SettingComposable
 import com.example.animationincompose.presentation.bottom_navigation.screens.composables.ZapComposable
 
 @Composable

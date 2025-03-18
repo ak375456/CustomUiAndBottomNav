@@ -1,4 +1,4 @@
-package com.example.animationincompose.presentation.bottom_navigation.screens.composables
+package com.example.animationincompose.hadith_api.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
