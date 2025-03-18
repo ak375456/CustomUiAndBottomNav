@@ -77,57 +77,60 @@ fun BottomNavigationScreenHolder(navController: NavHostController) {
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        floatingActionButton = {
-            // Wrap FAB and buttons in a Box
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 8.dp)
-                    .wrapContentSize(Alignment.BottomEnd)
-            ) {
-                // Additional buttons above the FAB
-                Column(
-                    modifier = Modifier
-                        .offset(y = (-60).dp) // Move buttons upward
-                ) {
-                    // Button 1
-                    FloatingActionButton(
-                        onClick = { /* Handle click */ },
-                        modifier = Modifier.size(48.dp),
-                        containerColor = MaterialTheme.colorScheme.secondary
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Add,
-                            contentDescription = "Button 1",
-                            tint = Color.White
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
-                    // Button 2
-                    FloatingActionButton(
-                        onClick = { /* Handle click */ },
-                        modifier = Modifier.size(48.dp),
-                        containerColor = MaterialTheme.colorScheme.tertiary
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Edit,
-                            contentDescription = "Button 2",
-                            tint = Color.White
-                        )
-                    }
-                }
 
-                // Main FAB
-                FloatingActionButton(
-                    onClick = { /* Handle click */ },
-                    modifier = Modifier.align(Alignment.BottomEnd),
-                    containerColor = MaterialTheme.colorScheme.primary
+        floatingActionButton = {
+            if (currentRoute == Screens.Home.route){
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp)
+                        .wrapContentSize(Alignment.BottomEnd)
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Favorite,
-                        contentDescription = "Main FAB",
-                        tint = Color.White
-                    )
+                    // Additional buttons above the FAB
+                    Column(
+                        modifier = Modifier
+                            .offset(y = (-60).dp) // Move buttons upward
+                    ) {
+                        // Button 1
+                        FloatingActionButton(
+                            onClick = { /* Handle click */ },
+                            modifier = Modifier.size(48.dp),
+                            containerColor = MaterialTheme.colorScheme.secondary
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Add,
+                                contentDescription = "Button 1",
+                                tint = Color.White
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(8.dp))
+                        // Button 2
+                        FloatingActionButton(
+                            onClick = { /* Handle click */ },
+                            modifier = Modifier.size(48.dp),
+                            containerColor = MaterialTheme.colorScheme.tertiary
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Edit,
+                                contentDescription = "Button 2",
+                                tint = Color.White
+                            )
+                        }
+                    }
+
+                    // Main FAB
+                    FloatingActionButton(
+                        onClick = { /* Handle click */ },
+                        modifier = Modifier.align(Alignment.BottomEnd),
+                        containerColor = MaterialTheme.colorScheme.primary
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Favorite,
+                            contentDescription = "Main FAB",
+                            tint = Color.White
+                        )
+                    }
                 }
             }
         },

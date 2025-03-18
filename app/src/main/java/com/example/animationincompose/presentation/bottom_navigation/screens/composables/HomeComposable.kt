@@ -1,15 +1,11 @@
 package com.example.animationincompose.presentation.bottom_navigation.screens.composables
 
-import androidx.compose.foundation.gestures.scrollable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,8 +16,6 @@ import androidx.compose.ui.unit.sp
 import co.yml.charts.axis.AxisData
 import co.yml.charts.common.model.PlotType
 import co.yml.charts.common.model.Point
-import co.yml.charts.common.utils.DataUtils
-import co.yml.charts.ui.barchart.models.BarChartType
 import co.yml.charts.ui.linechart.LineChart
 import co.yml.charts.ui.linechart.model.GridLines
 import co.yml.charts.ui.linechart.model.IntersectionPoint
@@ -136,6 +130,7 @@ fun HomeComposable() {
         )
 
         //---------DONUT CHART----------
+        Text("Donut Chart", fontSize = 32.sp)
         val donutChartData = PieChartData(
             slices = listOf(
                 PieChartData.Slice("HP", 15f, Color(0xFF5F0A87)),
