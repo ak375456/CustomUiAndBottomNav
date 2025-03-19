@@ -7,6 +7,7 @@ import com.example.animationincompose.hadith_api.domain.model.Hadith
 
 fun HadithEntity.toDomainModel(): Hadith {
     return Hadith(
+        id = id,
         hadith = hadith,
         narrator = narrator,
         reference = reference
@@ -15,6 +16,7 @@ fun HadithEntity.toDomainModel(): Hadith {
 
 fun Hadith.toEntity(): HadithEntity {
     return HadithEntity(
+        id = id,
         hadith = hadith,
         narrator = narrator,
         reference = reference

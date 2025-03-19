@@ -57,7 +57,7 @@ fun BottomNavigationScreenHolder(navController: NavHostController) {
     val bottomNavigationItem = listOf(
         BottomNavigation(Lucide.House, Screens.Home.route),
         BottomNavigation(Lucide.Network, Screens.Setting.route),
-        BottomNavigation(Lucide.Database, Screens.Profile.route),
+        BottomNavigation(Lucide.Database, Screens.Room.route),
         BottomNavigation(Lucide.Album, Screens.Album.route),
         BottomNavigation(Lucide.Zap, Screens.Zap.route),
     )

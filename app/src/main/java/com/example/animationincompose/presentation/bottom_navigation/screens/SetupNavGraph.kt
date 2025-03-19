@@ -10,7 +10,7 @@ import androidx.navigation.compose.composable
 import com.example.animationincompose.hadith_api.presentation.RetrofitComposable
 import com.example.animationincompose.presentation.bottom_navigation.screens.composables.AlbumComposable
 import com.example.animationincompose.presentation.bottom_navigation.screens.composables.HomeComposable
-import com.example.animationincompose.presentation.bottom_navigation.screens.composables.RoomComposable
+import com.example.animationincompose.hadith_api.presentation.RoomComposable
 import com.example.animationincompose.presentation.bottom_navigation.screens.composables.ZapComposable
 
 @Composable

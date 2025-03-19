@@ -2,7 +2,6 @@ package com.example.animationincompose.hadith_api.domain.use_cases.generate_hadi
 
 import com.example.animationincompose.hadith_api.domain.model.Hadith
 import com.example.animationincompose.hadith_api.domain.repository.HadithRepository
-import com.example.animationincompose.util.Resource
 import javax.inject.Inject
 
 class GenerateHadithUseCase @Inject constructor(

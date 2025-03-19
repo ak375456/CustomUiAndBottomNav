@@ -47,7 +47,6 @@ class HadithViewModel @Inject constructor(
         viewModelScope.launch {
             _offlineHadiths.value = Resource.Loading
             try {
-                // Collect the Flow and update the state
                 repository.getAllHadiths().collect { hadiths ->
                     _offlineHadiths.value = Resource.Success(hadiths)
                 }

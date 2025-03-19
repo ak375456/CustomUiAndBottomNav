@@ -6,7 +6,7 @@ const val HOME_ROUTE = "home"
 sealed class Screens(val route:String) {
     object Home : Screens("home")
     object Setting : Screens("retrofit")
-    object Room : Screens("root")
+    object Room : Screens("room")
     object Album : Screens("Album")
     object Zap : Screens("zap")
 }
