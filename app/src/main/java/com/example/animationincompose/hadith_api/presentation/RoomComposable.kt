@@ -22,11 +22,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.animationincompose.hadith_api.domain.model.Hadith
+import com.example.animationincompose.presentation.bottom_navigation.screens.Screens
 
 @Composable
 fun RoomComposable(
-    navHostController: NavHostController,
+    navController: NavHostController,
     viewModel: HadithViewModel = hiltViewModel(),
 ) {
     Column(
@@ -34,6 +36,7 @@ fun RoomComposable(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val nestedNavController = rememberNavController()
         val offlineHadiths by viewModel.offlineHadiths.collectAsState()
 
         when (offlineHadiths) {
@@ -48,7 +51,8 @@ fun RoomComposable(
                         HadithItem(
                             hadith = hadith,
                             onClick = {
-                                navHostController.navigate("hadithDetail/${hadith.id}")
+                                println("Hadith ID: ${hadith.id}")
+                                navController.navigate(Screens.HadithDetail.createRoute(hadith.id))
                             }
                         )
                     }

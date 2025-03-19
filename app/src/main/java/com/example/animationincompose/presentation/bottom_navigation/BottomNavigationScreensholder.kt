@@ -178,54 +178,56 @@ fun BottomNavigationScreenHolder(navController: NavHostController) {
 //            }
 //        },
         bottomBar = {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(70.dp)
-                    .offset(y = (-24).dp)
-                    .padding(8.dp)
-                    .background(
-                        MaterialTheme.colorScheme.primaryContainer,
-                        shape = Shapes().medium,
-                    ),
-                contentAlignment = Alignment.Center,
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
+            if (shouldShowBottomNav(currentRoute)){
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(70.dp)
+                        .offset(y = (-24).dp)
+                        .padding(8.dp)
+                        .background(
+                            MaterialTheme.colorScheme.primaryContainer,
+                            shape = Shapes().medium,
+                        ),
+                    contentAlignment = Alignment.Center,
                 ) {
-                    bottomNavigationItem.forEach { item ->
-                        Box(
-                            modifier = Modifier
-                                .size(36.dp)
-                                .clickable {
-                                    navController.navigate(item.label) {
-                                        popUpTo(navController.graph.startDestinationId) {
-                                            saveState = true
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        bottomNavigationItem.forEach { item ->
+                            Box(
+                                modifier = Modifier
+                                    .size(36.dp)
+                                    .clickable {
+                                        navController.navigate(item.label) {
+                                            popUpTo(navController.graph.startDestinationId) {
+                                                saveState = true
+                                            }
+                                            launchSingleTop = true
+                                            restoreState = true
                                         }
-                                        launchSingleTop = true
-                                        restoreState = true
+                                    },
+                                contentAlignment = Alignment.Center
+                            ) {
+                                if (currentRoute == item.label) {
+                                    GradientRingBox(
+                                        modifier = Modifier.matchParentSize(),
+                                        ringWidth = 8f,
+                                    ) {
+                                        Icon(
+                                            imageVector = item.icon,
+                                            contentDescription = item.label,
+                                            tint = Color(0xFFFFFFFF)
+                                        )
                                     }
-                                },
-                            contentAlignment = Alignment.Center
-                        ) {
-                            if (currentRoute == item.label) {
-                                GradientRingBox(
-                                    modifier = Modifier.matchParentSize(),
-                                    ringWidth = 8f,
-                                ) {
+                                } else {
                                     Icon(
                                         imageVector = item.icon,
                                         contentDescription = item.label,
                                         tint = Color(0xFFFFFFFF)
                                     )
                                 }
-                            } else {
-                                Icon(
-                                    imageVector = item.icon,
-                                    contentDescription = item.label,
-                                    tint = Color(0xFFFFFFFF)
-                                )
                             }
                         }
                     }
@@ -267,4 +269,15 @@ fun GradientRingBox(
         }
         content()
     }
+}
+
+fun shouldShowBottomNav(currentRoute: String?): Boolean {
+    val bottomNavScreens = listOf(
+        Screens.Home.route,
+        Screens.Setting.route,
+        Screens.Room.route,
+        Screens.Album.route,
+        Screens.Zap.route
+    )
+    return currentRoute in bottomNavScreens
 }

@@ -5,11 +5,8 @@ import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import com.example.animationincompose.hadith_api.presentation.HadithDetailComposable
 import com.example.animationincompose.hadith_api.presentation.RetrofitComposable
 import com.example.animationincompose.presentation.bottom_navigation.screens.composables.AlbumComposable
 import com.example.animationincompose.presentation.bottom_navigation.screens.composables.HomeComposable
@@ -21,6 +18,7 @@ fun SetupNavGraph(navHostController: NavHostController) {
     NavHost(
         navController = navHostController,
         startDestination = HOME_ROUTE,
+        route = ROOT_ROUTE,
         enterTransition = {
             return@NavHost slideIntoContainer(
                 AnimatedContentTransitionScope.SlideDirection.End, tween(700)
@@ -46,7 +44,7 @@ fun SetupNavGraph(navHostController: NavHostController) {
         composable(
             route = Screens.Room.route
         ) {
-            RoomComposable(navHostController)
+            RoomNavGraph(navHostController)
         }
         composable(
             route = Screens.Album.route
@@ -57,14 +55,6 @@ fun SetupNavGraph(navHostController: NavHostController) {
             route = Screens.Zap.route
         ) {
             ZapComposable()
-        }
-
-        composable(
-            route = Screens.HadithDetail.route,
-            arguments = listOf(navArgument("hadithId") { type = NavType.IntType })
-        ) { backStackEntry ->
-            val hadithId = backStackEntry.arguments?.getInt("hadithId") ?: 0
-            HadithDetailComposable(hadithId)
         }
     }
 }
