@@ -9,4 +9,7 @@ sealed class Screens(val route:String) {
     object Room : Screens("room")
     object Album : Screens("Album")
     object Zap : Screens("zap")
+    object HadithDetail : Screens("hadithDetail/{hadithId}") {
+        fun createRoute(hadithId: Int) = "hadithDetail/$hadithId"
+    }
 }

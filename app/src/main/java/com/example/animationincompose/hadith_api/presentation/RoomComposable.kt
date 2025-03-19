@@ -21,10 +21,12 @@ import com.example.animationincompose.util.Resource
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.animationincompose.hadith_api.domain.model.Hadith
 
 @Composable
 fun RoomComposable(
+    navHostController: NavHostController,
     viewModel: HadithViewModel = hiltViewModel(),
 ) {
     Column(
@@ -46,7 +48,7 @@ fun RoomComposable(
                         HadithItem(
                             hadith = hadith,
                             onClick = {
-                                viewModel.fetchHadithById(hadith.id)
+                                navHostController.navigate("hadithDetail/${hadith.id}")
                             }
                         )
                     }
