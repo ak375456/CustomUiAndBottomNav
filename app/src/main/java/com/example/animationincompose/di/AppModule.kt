@@ -1,5 +1,6 @@
 package com.example.animationincompose.di
 
+import com.example.animationincompose.hadith_api.data.local.database.dao.HadithDao
 import com.example.animationincompose.hadith_api.data.remote.HadithApi
 import com.example.animationincompose.hadith_api.data.repository.HadithRepositoryImpl
 import com.example.animationincompose.hadith_api.domain.repository.HadithRepository
@@ -16,7 +17,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRepository(api: HadithApi): HadithRepository {
-        return HadithRepositoryImpl(api = api)
+    fun provideRepository(api: HadithApi, hadithDao: HadithDao): HadithRepository {
+        return HadithRepositoryImpl(api = api, hadithDao = hadithDao)
     }
 }
